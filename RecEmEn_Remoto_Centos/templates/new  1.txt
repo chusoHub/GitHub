@@ -1,0 +1,37 @@
+{
+//se declara la variable entera 'i'
+ 	"_id" : "8eea31d89356753424eedb2bf864d958a9676819272ad7c22de0ffbdc17817f9",
+	"Query" : "quiero conectarme a navisio",
+	"UTCDateTime" : ISODate("2018-04-29T22:27:34.000+00:00"),
+	"Response" : {
+		"query" : "quiero conectarme a navisio",
+		"intents" : [
+			{
+				"intent" : "None",
+				"score" : 0.474890262
+			},
+			{
+				"intent" : "pide_aplicacion",
+				"score" : 0.265202969
+			}
+		],
+		"entities" : [
+			{
+				"entity" : "conectarme",
+				"type" : "acceder",
+				"startIndex" : 7,
+				"endIndex" : 16,
+				"score" : 0.8492381
+			},
+			{
+				"entity" : "quiero",
+				"type" : "pedir",
+				"startIndex" : 0,
+				"endIndex" : 5,
+				"score" : 0.6212328
+			}
+		]
+	}
+},
+
+

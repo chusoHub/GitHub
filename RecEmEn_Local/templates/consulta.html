@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='icon.png') }}">
+    <title>Reconocimiento de Emociones en la Enseñanza</title>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--font awasome para links-->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!--css propio de la aplicación-->
+    <link href="{{ url_for('static',filename='estilos.css') }}" rel="stylesheet">
+    <!--css extra para creación de gráficas de radar-->
+    <link href="{{ url_for('static',filename='radar-chart.css') }}" rel="stylesheet">
+    <!--fuente de google-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+</head>
+<body>
+    <!--navegador-->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;">
+        <div style="width:100%;">
+            <i class="fa fa-graduation-cap" style="color: #428bca; font-size:1.5em;" aria-hidden="true"></i>
+            <a class="navbar-brand ml-3 " href="/">Inicio</a>
+            <span class="navbar-text ">Consulta</span>
+            <span class=" float-right font-weight-light" style="color: #428bca;font-size: 1.5em;">Reconocimiento de Emociones en la Ense&ntilde;anza</span>
+        </div>
+    </nav>
+    <nav hidden class="navbar2 navbar navbar-expand-lg navbar-light  fixed-top" style="background-color: #fff;">
+        <div style="width:100%;">
+            <i class="fa fa-graduation-cap" style="color: #428bca; font-size:1.5em;" aria-hidden="true"></i>
+            <a class="navbar-brand ml-3 " href="/">Inicio</a>
+            <span class="navbar-text ">Consulta</span>
+            <span class=" float-right font-weight-light" style="color: #428bca;font-size: 1.5em;">Reconocimiento de Emociones en la Ense&ntilde;anza</span>
+        </div>
+    </nav>
+    <!--listado de sesiones con: nº de sesión, fecha de inicio y duración-->
+    <div id="lista" class="container mt-3 pb-5">
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#MyCollapse" role="button" aria-expanded="true" aria-controls="MyCollapse"><i class="fa fa-bars" aria-hidden="true"></i> Lista Sesiones</a>
+        </p>
+        <hr style="border-bottom: .1px solid #007bff !important; opacity:0.3 !important;">
+        <div class="collapse" id="MyCollapse">
+            <div class="row ">
+                <div class="col-4  text-center">
+                    <h5><a id="sesionB" class="nav-item nav-link active font-weight-light text-dark" href="#"><i class="fa fa-arrows-v" style="color:#007bff;opacity:.5" aria-hidden="true"></i> Sesi&oacute;n </a></h5>
+                </div>
+                <div class="col-4  text-center">
+                    <h5><a id="fechB" class="nav-item nav-link active font-weight-light text-dark" href="#"><i class="fa fa-arrows-v" style="color:#007bff;opacity:.5" aria-hidden="true"></i> Fecha </a></h5>
+                </div>
+                <div class="col-4  text-center">
+                    <h5><a id="duraB" class="nav-item nav-link active font-weight-light text-dark" href="#"><i class="fa fa-arrows-v" style="color:#007bff;opacity:.5" aria-hidden="true"></i> Duraci&oacute;n (s)</a></h5>
+                </div>
+            </div>
+            <hr>
+            <div style="max-height: 350px;overflow-y: scroll;overflow-x: hidden;margin-bottom:-1px">
+
+                <div id="ListaSesiones" class="list-group" style="margin-top:-1px">
+                    {% for sesiones in lista %}
+                    <button id="{{ sesiones.sesion }}" type="button" class="botonListaSesion list-group-item list-group-item-action pl-0 pr-0"><div class="row  "><span class="col-4 text-center pl-0 pr-0">N<sup>o</sup> {{ sesiones.sesion }}</span><span class="col-4  text-center pl-0 pr-0">{{ sesiones.fechaIni }}</span><span class="col-4 text-center pl-0 pr-0">{{ sesiones.tiempoSesion }}</span></div></button> {% endfor %}
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <script>
+        var ArraySesiones = new Array();
+        {% for sesiones in lista %}
+        ArraySesiones.push({"sesiones": {{sesiones.sesion}},"fechaIni": "{{ sesiones.fechaIni }}","tiempoSesion": {{sesiones.tiempoSesion}}}); 
+		{% endfor %}
+    </script>
+    <!--grafica radar y textos-->
+    <div class="container mb-0 pb-0">
+        <div class="row">
+            <div class="col-auto text-center">
+                <div id="graphPolar" class="mb-0 pb-0"></div>
+                <!--grafica de radar-->
+            </div>
+            <div class="col-3  d-flex  flex-column justify-content-center  ">
+                <!--textos: nº sesión y nº de alumnos-->
+                <h4 id="divses" class=" font-weight-light text-align-left">Sesi&oacute;n: 0</h4>
+                <br/>
+                <h4 id="divnum" class="pl-6 font-weight-light text-align-left">N<sup>o</sup> alumnos actual: 0</h4>
+                <br/>
+                <h4 id="divtiempo" class="pl-6 font-weight-light text-align-left">Tiempo actual (s): 0</h4>
+            </div>
+            <div class="col-3 d-flex  flex-column justify-content-start ">
+                <h4 id="divtext" class="font-weight-light text-center">&Uacute;ltimas palabras:</h4>
+                <div id="contenedorText" class="text-center">
+                    <h1 id="text1" class="font-italic text-primary m-0" style="opacity: 0.8">null</h1>
+                    <br>
+                    <h2 id="text2" class="font-italic text-primary m-0" style="opacity: 0.7">null</h2>
+                    <br>
+                    <h3 id="text3" class="font-italic text-primary m-0" style="opacity: 0.6">null</h3>
+                    <br>
+                    <h4 id="text4" class="font-italic text-primary m-0" style="opacity: 0.5">null</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--slider range input para controlar el tiempo-->
+    <div class="container">
+        <input type="range" width="100%" class="form-control-range" id="tiempoRange" value="0" min="0" max="0">
+    </div>
+    <!--contenedor gáficas lineales-->
+    <div class="container pb-4 mb-4 mt-4" Style="max-width:100%; min-height:500px">
+        <div class="row m-0">
+            <div id="graphDiv1" class="col-sm container bg-light p-2 pl-0 "></div>
+            <div id="graphDiv2" class="col-sm container bg-light p-2 pl-0 "></div>
+        </div>
+        <div class="row m-0">
+            <div id="graphDiv4" class="col-sm container bg-light p-2 pt-2 pl-0 "></div>
+            <div id="graphDiv3" class="col-sm container bg-light p-2 pt-2 pl-0 "></div>
+        </div>
+    </div>
+    <!--pie de página-->
+    <div class="fixed-bottom pie text-center">
+        <div class="row mt-2 mb-1">
+            <div class="col-sm">
+                <p class=" text-muted font-weight-light">Trabajo de Fin de M&aacute;ster</p>
+            </div>
+            <div class="col-sm">
+                <p class="text-muted font-weight-light">Jes&uacute;s Vicente Riquelme 2018</p>
+            </div>
+        </div>
+    </div>
+    <!--jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--bootstrap-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--loadsh para tratamiento de json-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.js"></script>
+    <!--d3 para representación de gráficas-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!--js extra basado en d3 para creación de gráficas de radar-->
+    <script src="{{ url_for('static',filename='radar-chart.js') }}"></script>
+    <!--js propio de la aplicación-->
+    <script src="{{ url_for('static',filename='consulta.js') }}"></script>
+    <script>
+    </script>
+</body>
+</html>

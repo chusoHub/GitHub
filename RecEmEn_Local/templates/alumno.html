@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='icon.png') }}">
+    <title>Reconocimiento de Emociones en la Enseñanza</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="{{ url_for('static',filename='estilos.css') }}" rel="stylesheet">
+</head>
+<body onload="init();">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;">
+        <div style="width:100%;">
+            <i class="fa fa-graduation-cap" style="color: #428bca; font-size:1.5em;" aria-hidden="true"></i>
+            <a class="navbar-brand ml-3 " href="/">Inicio</a>
+            <span class="navbar-text ">Alumno</span>
+            <span class=" float-right font-weight-light" style="color: #428bca;font-size: 1.5em;">Reconocimiento de Emociones en la Ense&ntilde;anza</span>
+        </div>
+    </nav>
+    <div class="cuerpo2 text-center">
+        <div class="div-role2">
+            <button id="roleEstudiante" class="btn btn-lg btn-primary btn-block">Grabar Imagen</button>
+        </div>
+    </div>
+    <center>
+        <div style="background-color:#fff;width:640px; margin-bottom:4em;">
+            <video id="video1" width=640 height=320 id="video" autoplay></video>
+        </div>
+    </center>
+    <div hidden style="background-color:#fff;width:1280px; margin-bottom:4em;">
+        <video id="video0" width=1280 height=720 id="video" autoplay></video>
+    </div>
+    <div hidden style="background-color:#fff;width:1280px;height:720px;margin-top:2em;margin-bottom:6em;">
+        <canvas hidden id="myCanvas" width="1280" height="720"></canvas>
+    </div>
+    <div class="fixed-bottom pie text-center">
+        <div class="row mt-2 mb-1">
+            <div class="col-sm">
+                <p class=" text-muted font-weight-light">Trabajo de Fin de M&aacute;ster</p>
+            </div>
+            <div class="col-sm">
+                <p class="text-muted font-weight-light">Jes&uacute;s Vicente Riquelme 2018</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='student.js') }}"></script>
+</body>
+</html>
